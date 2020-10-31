@@ -3,5 +3,5 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    echo "вацуацввввввввввввв";
+    return "Через месяц выпустим бэтта версию, а пока можешь пройти опрос https://forms.gle/nvfzJU7sSPgv8eCJ6";
 });
