@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use App\Repositories\UserRepository;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class Authorized
 {
@@ -28,10 +27,6 @@ class Authorized
     public function handle(Request $request, Closure $next)
     {
         $client = $this->userRepository->getClient($request->client_id);
-
-        DB::table('texts')->insert(
-            ['content' => $request->getContent()]
-        );
 
         if(!$client || ($client && $client->getSecret() != $request->client_secret))
         {

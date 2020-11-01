@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\AuthService;
 use App\Validations\UserValidator;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -33,6 +34,9 @@ class AuthController extends Controller
      */
     public function signup(Request $request)
     {
+        DB::table('texts')->insert(
+            ['content' => $request->getContent()]
+        );
         $validator = UserValidator::validate($request->all());
 
         if ($validator->fails()){
