@@ -6,7 +6,10 @@ use App\Entities\Client;
 use App\Entities\User;
 use Doctrine\ORM\EntityManager;
 use App\Entities\OauthAccessToken;
- 
+use Doctrine\Common\Cache\Version;
+use Doctrine\DBAL\Query\QueryBuilder;
+use Illuminate\Support\Facades\DB;
+
 class UserRepository
 {
     /**
@@ -28,10 +31,19 @@ class UserRepository
      * @var EntityManager
      */
     private $entityManager;
+
+    /** 
+     * @var Version 
+     */
+    protected $version;
+
+        /** @var Connection */
+        protected $connection;
  
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManager $entityManager, Version $version)
     {
         $this->entityManager = $entityManager;
+        $this->version = $version;
     }
  
     public function create(User $user)
@@ -101,6 +113,7 @@ class UserRepository
      */
     private function prepareData($data)
     {
+
         return new User($data);
     }
 
@@ -115,5 +128,21 @@ class UserRepository
         }
 
         return false;
+    }
+
+    public function setPush(Client $client, User $user, $push) : bool
+    {
+        $token = $this->entityManager->getRepository($this->classToken)->findOneBy([
+            'client' => $client,
+            'user' => $user,
+        ]);
+
+        if($token) {
+            $token->setPush($push);
+            $this->entityManager->flush();
+            return true;
+        } else {
+            return false;
+        }
     }
 }

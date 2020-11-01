@@ -68,4 +68,9 @@ class OauthAccessToken
         return $this->name;
     }
 
+    public function setPush($push)
+    {
+        $this->pushToken = $push;
+    }
+
 }

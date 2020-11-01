@@ -3,5 +3,5 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    echo "вацуацввввввввввввв";
+    return '<img src="/images/boys.jpg" class="rounded mx-auto d-block" alt="Agile, scrum... Fuck you I am Russin? huyak, huyak and v production">';
 });

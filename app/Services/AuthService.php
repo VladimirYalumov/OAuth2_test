@@ -45,6 +45,7 @@ class AuthService
         $user = new User();
         $user->setName($request->name);
         $user->setPhone($request->phone);
+        $user->setPhone($request->phone);
         $user->setPassword(md5($request->password));
 
         $this->repository->create($user);
@@ -58,6 +59,15 @@ class AuthService
         $token = $this->repository->checkOauthToken($client, $user);
 
         return $this->repository->deleteToken($token);
+    }
+
+    public function setPushToken(Request $request)
+    {
+        $client = $this->repository->getClient($request->client_id);    
+        $user = $this->repository->getUserByPhone($request->phone);
+        $push = $this->repository->setPush($client, $user, $request->push_token);
+
+        return $push;
     }
 
     public function checkUser(Request $request)

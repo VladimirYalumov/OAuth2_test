@@ -55,7 +55,7 @@ class AuthController extends Controller
 
         return response()->json([
             'success' => true
-        ], 200);
+        ], 201);
     }
   
     /**
@@ -96,7 +96,7 @@ class AuthController extends Controller
     }
   
     /**
-     * Logout user (Revoke the token)
+     * Logout user
      *
      * @return [string] message
      */
@@ -105,6 +105,25 @@ class AuthController extends Controller
         $this->authService->logoutUser($request);
         return response()->json([
             'success' => true,
-        ], 200);
+        ], 201);
+    }
+
+    /**
+     * Set Push token
+     *
+     * @return [string] message
+     */
+    public function setPushToken(Request $request)
+    {
+        if($this->authService->setPushToken($request))
+        {
+            return response()->json([
+                'success' => true,
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+            ], 400);
+        }
     }
 }
