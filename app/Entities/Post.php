@@ -22,28 +22,37 @@ class Post
     protected $id;
 
     /**
-     * @var string
-     * @ORM\ManyToOne(targetEntity="Image", cascade="persist")
-     * @ORM\JoinColumn(name="image_id", referencedColumnName="id", onDelete="SET NULL")
+     * @var \Doctrine\Common\Collections\Collection|Image[]
+     *
+     * @ORM\ManyToMany(targetEntity="Image", inversedBy="posts")
+     * @ORM\JoinTable(
+     *  name="post_image",
+     *  joinColumns={
+     *      @ORM\JoinColumn(name="post_id", referencedColumnName="id")
+     *  },
+     *  inverseJoinColumns={
+     *      @ORM\JoinColumn(name="image_id", referencedColumnName="id")
+     *  }
+     * )
      */
     protected $image_id;
 
     /**
-     * @var string
+     * @var int
      * @ORM\ManyToOne(targetEntity="User", cascade="persist")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="SET NULL")
      */
     protected $user_id;
 
     /**
-     * @var string
+     * @var int
      * @ORM\ManyToOne(targetEntity="Text", cascade="persist")
      * @ORM\JoinColumn(name="text_id", referencedColumnName="id", onDelete="SET NULL")
      */
     protected $text_id;
 
     /**
-     * @var string
+     * @var int
      * @ORM\ManyToOne(targetEntity="Status", cascade="persist")
      * @ORM\JoinColumn(name="status_id", referencedColumnName="id", onDelete="SET NULL")
      */

@@ -53,20 +53,13 @@ class AuthService
 
     public function logoutUser(Request $request)
     {
-        $client = $this->repository->getClient($request->client_id);
-        $user = $this->repository->getUserByPhone($request->phone);
-
-        $token = $this->repository->checkOauthToken($client, $user);
-
+        $token = $this->repository->checkOauthToken($request->client, $request->user);
         return $this->repository->deleteToken($token);
     }
 
     public function setPushToken(Request $request)
     {
-        $client = $this->repository->getClient($request->client_id);    
-        $user = $this->repository->getUserByPhone($request->phone);
-        $push = $this->repository->setPush($client, $user, $request->push_token);
-
+        $push = $this->repository->setPush($request->client, $request->user, $request->push_token);
         return $push;
     }
 

@@ -47,6 +47,8 @@ class Authorized
         }
 
         if($this->userRepository->checkAuth($request->bearerToken(), $client, $user)){
+            $request->request->add(['client' => $client]);
+            $request->request->add(['user' => $user]);
             return $next($request);
         }       
         

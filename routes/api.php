@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PushController;
 
 Route::group([
     'prefix' => 'auth'
@@ -15,5 +15,15 @@ Route::group([
     ], function() {
         Route::delete('signout', [AuthController::class, 'signout']);
         Route::put('set-push', [AuthController::class, 'setPushToken']);
+    });
+});
+
+Route::group([
+    'middleware' => 'auth'
+], function() {
+    Route::group([
+        'prefix' => 'send-push'
+    ], function() {
+        Route::post('change-password', [PushController::class, 'changePassword']);
     });
 });

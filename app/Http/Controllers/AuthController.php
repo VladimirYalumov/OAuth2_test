@@ -7,8 +7,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\AuthService;
 use App\Validations\UserValidator;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -23,20 +21,8 @@ class AuthController extends Controller
         $this->authService = $authService;
     }
 
-    /**
-     * Create user
-     *
-     * @param  [string] name
-     * @param  [string] email
-     * @param  [string] password
-     * @param  [string] password_confirmation
-     * @return [string] message
-     */
     public function signup(Request $request)
     {
-        DB::table('texts')->insert(
-            ['content' => $request->getContent()]
-        );
         $validator = UserValidator::validate($request->all());
 
         if ($validator->fails()){
@@ -59,34 +45,25 @@ class AuthController extends Controller
 
         return response()->json([
             'success' => true
-        ], 201);
+        ], 200);
     }
   
-    /**
-     * Login user and create token
-     *
-     * @param  [string] email
-     * @param  [string] password
-     * @param  [boolean] remember_me
-     * @return [string] access_token
-     * @return [string] token_type
-     * @return [string] expires_at
-     */
     public function signin(Request $request)
     {   
-        if(!$this->authService->checkUser($request))
-        {
-            return response()->json([
-                'success' => false,
-                'message' => 'Unauthorized'
-            ], 401);
-        }
-
+        
         if(!$this->authService->checkClient($request))
         {
             return response()->json([
                 'success' => false,
                 'message' => 'Invalid client'
+            ], 401);
+        }
+
+        if(!$this->authService->checkUser($request))
+        {
+            return response()->json([
+                'success' => false,
+                'message' => 'Unauthorized'
             ], 401);
         }
 
@@ -109,7 +86,7 @@ class AuthController extends Controller
         $this->authService->logoutUser($request);
         return response()->json([
             'success' => true,
-        ], 201);
+        ], 200);
     }
 
     /**

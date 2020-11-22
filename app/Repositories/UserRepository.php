@@ -107,16 +107,6 @@ class UserRepository
         return NULL;
     }
 
-    /**
-     * create Post
-     * @return User
-     */
-    private function prepareData($data)
-    {
-
-        return new User($data);
-    }
-
     public function checkAuth($token, Client $client, User $user)
     { 
         $userToken = $this->checkOauthToken($client, $user);
