@@ -1,0 +1,76 @@
+{
+    "name": "laravel-doctrine/orm",
+    "description": "A Doctrine ORM bridge for Laravel 5",
+    "license": "MIT",
+    "keywords": [
+        "doctrine",
+        "laravel",
+        "orm",
+        "data mapper",
+        "database"
+    ],
+    "authors": [
+        {
+            "name": "Patrick Brouwers",
+            "email": "patrick@maatwebsite.nl"
+        }
+    ],
+    "require": {
+        "php": "^7.3|^8.0",
+        "doctrine/orm": "^2.6|^2.7|^2.8",
+        "doctrine/persistence": "^1.3.5|^2.0",
+        "illuminate/auth": "^8.0",
+        "illuminate/console": "^8.0",
+        "illuminate/container": "^8.0",
+        "illuminate/contracts": "^8.0",
+        "illuminate/pagination": "^8.0",
+        "illuminate/routing": "^8.0",
+        "illuminate/support": "^8.0",
+        "illuminate/validation": "^8.0",
+        "illuminate/view": "^8.0",
+        "symfony/serializer": "^2.7|^3.0|^4.0|^5.0",
+        "doctrine/inflector": "^1.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.3",
+        "mockery/mockery": "^1.3.1",
+        "barryvdh/laravel-debugbar": "~3.0",
+        "itsgoingd/clockwork": "~1.9|^5.0",
+        "illuminate/log": "^8.0",
+        "illuminate/notifications": "^8.0",
+        "illuminate/queue": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "LaravelDoctrine\\ORM\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests"
+        ]
+    },
+    "suggest": {
+        "laravel-doctrine/fluent": "Fluent mapping driver (alternative to xml, yaml, ... (~1.1).",
+        "fzaninotto/faker": "Required to use the entity factory builder (~1.4).",
+        "laravel-doctrine/acl": "to integrate Doctrine roles & permissions with Laravel's Authorization system (~1.0)",
+        "laravel-doctrine/extensions": "to add Behavioral and Query/Type Extensions for Laravel Doctrine (~1.0)",
+        "laravel-doctrine/migrations": "to add support for migrations in Laravel Doctrine (~1.0)",
+        "yajra/laravel-oci8": "Support for Laravel native queue and session database drivers in Oracle (~2.0)."
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LaravelDoctrine\\ORM\\DoctrineServiceProvider"
+            ],
+            "aliases": {
+                "Registry": "LaravelDoctrine\\ORM\\Facades\\Registry",
+                "Doctrine": "LaravelDoctrine\\ORM\\Facades\\Doctrine",
+                "EntityManager": "LaravelDoctrine\\ORM\\Facades\\EntityManager"
+            }
+        }
+    }
+}

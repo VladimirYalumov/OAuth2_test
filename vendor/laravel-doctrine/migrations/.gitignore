@@ -1,0 +1,10 @@
+/vendor
+composer.phar
+composer.lock
+.DS_Store
+.php_cs.cache
+
+.idea
+laravel-doctrine-orm.iml
+phpunit.xml
+.phpunit.result.cache
