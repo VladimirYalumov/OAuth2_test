@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PushController;
+use App\Http\Controllers\ImageController;
 
 Route::group([
     'prefix' => 'auth'
@@ -21,9 +22,7 @@ Route::group([
 Route::group([
     'middleware' => 'auth'
 ], function() {
-    Route::group([
-        'prefix' => 'send-push'
-    ], function() {
+    Route::group([ 'prefix' => 'send-push'], function() {
         Route::post('change-password', [PushController::class, 'changePassword']);
     });
 });

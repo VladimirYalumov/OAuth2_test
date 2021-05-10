@@ -56,4 +56,14 @@ class User implements AuthenticatableContract
     {
         return $this->id;
     }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    public function setActive($active)
+    {
+        $this->active = $active;
+    }
 }

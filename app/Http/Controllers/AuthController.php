@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Services\AuthService;
+use App\Services\EmailService;
 use App\Validations\UserValidator;
 
 class AuthController extends Controller
@@ -16,13 +17,20 @@ class AuthController extends Controller
      */
     private $authService;
 
-    public function __construct(AuthService $authService)
+    /**
+     * @var EmailService
+     */
+    private $emailService;
+
+    public function __construct(AuthService $authService, EmailService $emailService)
     {
         $this->authService = $authService;
+        $this->emailService = $emailService;
     }
 
     public function signup(Request $request)
     {
+        $this->emailService->sendEmail();
         $validator = UserValidator::validate($request->all());
 
         if ($validator->fails()){
@@ -89,22 +97,8 @@ class AuthController extends Controller
         ], 200);
     }
 
-    /**
-     * Set Push token
-     *
-     * @return [string] message
-     */
-    public function setPushToken(Request $request)
+    public function sendEmail(Request $request)
     {
-        if($this->authService->setPushToken($request))
-        {
-            return response()->json([
-                'success' => true,
-            ], 200);
-        } else {
-            return response()->json([
-                'success' => false,
-            ], 400);
-        }
+        $this->emailService->sendEmail();
     }
 }

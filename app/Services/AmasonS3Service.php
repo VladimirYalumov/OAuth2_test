@@ -2,20 +2,22 @@
 
 namespace App\Services;
 
-use Aws\S3\S3Client;
-use League\Flysystem\AwsS3v3\AwsS3Adapter;
-use League\Flysystem\Filesystem;
+use App\Repositories\PostRepository;
+use Illuminate\Support\Facades\Storage;
 
 class AmasonS3Service
 {
-    private $client = new S3Client([
-        'credentials' => [
-            'key'    => 'your-key',
-            'secret' => 'your-secret'
-        ],
-        'region' => 'your-region',
-        'version' => 'latest|version',
-    ]);
+    private $postRepository;
+ 
+    public function __construct(PostRepository $postRepository)
+    {
+        $this->postRepository = $postRepository;
+    }
 
+    public function saveImage($file) : bool
+    {
+        Storage::disk('s3')->put('/pdf/filename', file_get_contents($file));
+        return true;
+    }
     
 }

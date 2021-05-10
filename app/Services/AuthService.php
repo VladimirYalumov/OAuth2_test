@@ -46,6 +46,8 @@ class AuthService
         $user->setName($request->name);
         $user->setPhone($request->phone);
         $user->setPhone($request->phone);
+        $user->setEmail($request->email);
+        $user->setActive(false);
         $user->setPassword(md5($request->password));
 
         $this->repository->create($user);

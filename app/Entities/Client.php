@@ -47,9 +47,30 @@ class Client
         return $this->secret;
     }
 
+    /**
+     * @param string $name 
+    */
+    public function setSecret($secret){
+        $this->secret = $secret;
+    }
+
+    
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param string $name 
+    */
+    public function setName(string $name)
+    {
+        $this->name = $name;
+    }
+
+    public function getName()
+    {
+        return $this->name;
     }
 
 }

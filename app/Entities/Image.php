@@ -26,4 +26,20 @@ class Image
      * @ORM\Column(type="string")
      */
     protected $url;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    protected $filename;
+
+    public function setUrl(string $url)
+    {
+        $this->url = $url;
+    }
+
+    public function setFileName(string $filename)
+    {
+        $this->filename = $filename;
+    }
 }
